@@ -1,5 +1,5 @@
 // あなたの LIFF ID を入力してください
-const liffId = "あなたの LIFF ID";
+const liffId = 2008640559-9lXvZakB;
 
 window.onload = async () => {
   try {
