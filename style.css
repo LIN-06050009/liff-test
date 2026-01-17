@@ -1,0 +1,284 @@
+/* 共通設定 */
+* {
+  box-sizing: border-box;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  transform: translateY(8px) scale(0.99);
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 表示中 */
+.screen.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+#start-screen {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;  /* ⭐ 垂直置中 */
+  align-items: center;      /* ⭐ 水平置中 */
+
+  padding: 32px 20px;
+  gap: 20px;
+}
+
+#start-screen .title {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+#start-screen .subtitle {
+  font-size: 14px;
+  color: #bbbbbb;
+  margin-bottom: 10px;
+}
+
+/* 共通ボタンデザイン */
+#start-button {
+  display: block;
+  width: 40%;
+  padding: 10px 14px;
+
+  background: linear-gradient(
+    to right,
+    #3a3a3a 50%,
+    #2a2a2a 50%
+  );
+  background-size: 200% 100%;
+  background-position: right bottom;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+
+  border: none;
+  border-left: 2px solid #5a5a5a;
+  border-radius: 10px;
+
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  cursor: pointer;
+
+  transition:
+    background-position 0.35s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+}
+
+#start-button:hover {
+  background-position: left bottom;
+}
+
+#start-button:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+#chat-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: #1e1e1e;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  color: #e0e0e0;
+}
+
+/* アプリ全体（LIFF Tall 想定） */
+.app {
+  width: 100%;
+  max-width: 420px;
+  height: 100dvh;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(
+    180deg,
+    #161616 0%,
+    #242424 45%,
+    #3a3a3a 100%
+  );
+
+  border-radius: 18px;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* ヘッダー */
+.header {
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #333333;
+  border-bottom: 1px solid #444;
+}
+
+/* メッセージエリア */
+.chat {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* メッセージ共通 */
+.message {
+  max-width: 80%;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* システムメッセージ */
+.system {
+  background-color: #3a3a3a;
+  color: #cccccc;
+  align-self: flex-start;
+}
+
+/* ユーザーメッセージ */
+.user {
+  background-color: #555555;
+  color: #ffffff;
+  align-self: flex-end;
+}
+
+/* 入力エリア */
+.input-area {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #444;
+  background-color: #333333;
+}
+
+/* 入力欄 */
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background-color: #1f1f1f;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+/* 送信ボタン */
+.input-area button {
+  margin-left: 8px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #666666;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ヘッダー内レイアウト */
+.header {
+  position: relative;
+  padding: 14px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #333333;
+  border-bottom: 1px solid #444;
+}
+
+/* 戻るボタン */
+.back-button {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  padding: 4px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+
+  background-color: #555555;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+#top-image {
+  width: 65%;
+  max-width: 180px;
+  margin: 32px auto;
+  border-radius: 16px;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+#top-image.bounce {
+  transform: scale(1.06);
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.auth-buttons {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+#login-btn,
+#logout-btn {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  cursor: pointer;
+}
+
+#login-btn:hover,
+#logout-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
