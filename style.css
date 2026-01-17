@@ -261,10 +261,21 @@ body {
 
 .auth-buttons {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
+}
+
+#login-btn,
+#logout-btn {
+  font-size: 0.7rem;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  cursor: pointer;
 }
 
 #login-btn,

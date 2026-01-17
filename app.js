@@ -35,12 +35,21 @@ image.addEventListener("click", () => {
 const LIFF_ID = "2008640559-9lXvZakB";
 
 const statusText = document.getElementById("login-status");
+const loginBtn = document.getElementById("login-btn");
+const logoutBtn = document.getElementById("logout-btn");
+
 
 async function initLiff() {
   try {
     await liff.init({ liffId: LIFF_ID });
 
     console.log("isLoggedIn:", liff.isLoggedIn());
+
+    if (!liff.isInClient()) {
+      showScreen("start-screen");
+      statusText.textContent = "テストモード（LINE外）";
+      return;
+    }
 
     // ❌ 未登入 → 顯示提示 UI，並自動登入
     if (!liff.isLoggedIn()) {
@@ -75,6 +84,17 @@ function showScreen(screenId) {
   });
   document.getElementById(screenId)?.classList.add("active");
 }
+
+loginBtn.addEventListener("click", () => {
+  liff.login({
+    redirectUri: window.location.origin + "/"
+  });
+});
+
+logoutBtn.addEventListener("click", () => {
+  liff.logout();
+  location.reload();
+});
 
 initLiff();
 
