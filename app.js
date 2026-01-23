@@ -1,18 +1,6 @@
 const startButton = document.getElementById("start-button");
 const startScreen = document.getElementById("start-screen");
-const chatScreen = document.getElementById("chat-screen");
 
-startButton.addEventListener("click", () => {
-  startScreen.classList.remove("active");
-  chatScreen.classList.add("active");
-});
-
-const backButton = document.getElementById("back-button");
-
-backButton.addEventListener("click", () => {
-  chatScreen.classList.remove("active");
-  startScreen.classList.add("active");
-});
 
 const image = document.getElementById("top-image");
 
@@ -34,66 +22,42 @@ image.addEventListener("click", () => {
 
 const LIFF_ID = "2008640559-9lXvZakB";
 
-const statusText = document.getElementById("login-status");
-const loginBtn = document.getElementById("login-btn");
-const logoutBtn = document.getElementById("logout-btn");
-
+const statusText = document.getElementById("status-text");
+const testBadge = document.getElementById("test-badge");
 
 async function initLiff() {
-  try {
-    await liff.init({ liffId: LIFF_ID });
+  await liff.init({ liffId: LIFF_ID });
 
-    console.log("isLoggedIn:", liff.isLoggedIn());
-
-    if (!liff.isInClient()) {
-      showScreen("start-screen");
-      statusText.textContent = "テストモード（LINE外）";
-      return;
-    }
-
-    // ❌ 未登入 → 顯示提示 UI，並自動登入
-    if (!liff.isLoggedIn()) {
-      showScreen("login-screen");
-      statusText.textContent = "LINEにログイン中です…";
-
-      // ⚠️ 給 UI 一點時間顯示（體驗會好很多）
-      setTimeout(() => {
-        liff.login({
-          redirectUri: window.location.origin + "/"
-        });
-      }, 800);
-
-      return;
-    }
-
-    // ✅ 已登入 → 直接進聊天室
-    const profile = await liff.getProfile();
-    statusText.textContent = `ログイン中：${profile.displayName}`;
-
-    showScreen("start-screen");
-
-  } catch (err) {
-    console.error(err);
-    statusText.textContent = "LIFF 初期化に失敗しました";
+  // 🧪 測試模式（LINE 外）
+  if (!liff.isInClient()) {
+    statusText.textContent = "テストモード（LINE外）";
+    testBadge.style.display = "block";
+    startButton.style.display = "block"; // 測試也可按
+    return;
   }
+
+  testBadge.style.display = "none";
+
+  // 🔐 自動登入
+  if (!liff.isLoggedIn()) {
+    statusText.textContent = "LINEにログイン中です…";
+    startButton.style.display = "none";
+    liff.login();
+    return;
+  }
+
+  // ✅ 已登入
+  const profile = await liff.getProfile();
+  currentProfile = profile;
+
+  statusText.textContent = `こんにちは ${profile.displayName}！`;
+  startButton.style.display = "block";
 }
 
-function showScreen(screenId) {
-  document.querySelectorAll(".screen").forEach(screen => {
-    screen.classList.remove("active");
-  });
-  document.getElementById(screenId)?.classList.add("active");
-}
-
-loginBtn.addEventListener("click", () => {
-  liff.login({
-    redirectUri: window.location.origin + "/"
-  });
-});
-
-logoutBtn.addEventListener("click", () => {
-  liff.logout();
-  location.reload();
+startButton.addEventListener("click", () => {
+  if (liff.isInClient()) {
+    liff.closeWindow();
+  }
 });
 
 initLiff();

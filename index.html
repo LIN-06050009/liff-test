@@ -12,6 +12,7 @@
 
 
 <body>
+  <div class="test-badge" id="test-badge">⚠️ テスト画面</div>
     <!-- 未登入提示畫面 -->
   <div id="login-screen" class="screen">
     <div class="login-box">
@@ -30,34 +31,11 @@
 
       <h1 class="title">うずらbot～</h1>
       <p class="subtitle">学校の知識全部しる！</p>
-      <div class="auth-buttons">
-        <button id="login-btn">ログイン</button>
-        <button id="logout-btn">ログアウト</button>
-      </div>
-
-      <p id="login-status">確認中…</p>
+      
+      <p id="status-text" class="status-text">
+        接続を確認しています…
+      </p>
       <button id="start-button">はじめる</button>
-
-    </section>
-
-    <!-- 画面②：対話画面 -->
-    <section id="chat-screen" class="screen">
-
-      <header class="header">
-        <button id="back-button" class="back-button">戻る</button>
-        <span class="header-title">対話画面</span>
-      </header>
-
-      <main class="chat">
-        <div class="message system">
-          メッセージを入力してください
-        </div>
-      </main>
-
-      <footer class="input-area">
-        <input type="text" placeholder="ここに入力..." />
-        <button>送信</button>
-      </footer>
 
     </section>
 
