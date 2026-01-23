@@ -46,13 +46,22 @@ async function initLiff() {
     return;
   }
 
-  // ✅ 已登入
   const profile = await liff.getProfile();
-  currentProfile = profile;
 
-  statusText.textContent = `こんにちは ${profile.displayName}！`;
+  statusText.textContent =
+    `こんにちは ${profile.displayName}！\n連結成功しました ✅`;
+
   startButton.style.display = "block";
+
+  // 👇 這一段是新增的
+  await liff.sendMessages([
+    {
+      type: "text",
+      text: `ログイン成功しました！\n${profile.displayName} さん、こんにちは 👋`
+    }
+  ]);
 }
+
 
 startButton.addEventListener("click", () => {
   if (liff.isInClient()) {
